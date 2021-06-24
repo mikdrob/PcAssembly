@@ -13,6 +13,8 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private Integer NumberOfItems;
+
     @ManyToOne
     @JoinColumn(name="item_id", nullable = false)
     private Item item;
@@ -22,9 +24,10 @@ public class Cart implements Serializable {
     @JoinColumn(name="order_item_id", nullable = false)
     private OrderItem orderItem;
 
-    public Cart(Item item, OrderItem orderItem) {
+    public Cart(Item item, OrderItem orderItem, Integer numberOfItems) {
         this.item = item;
         this.orderItem = orderItem;
+        this.NumberOfItems = numberOfItems;
     }
 
     public Cart() {
@@ -50,5 +53,13 @@ public class Cart implements Serializable {
 
     public void setOrderItem(OrderItem orderItem) {
         this.orderItem = orderItem;
+    }
+
+    public Integer getNumberOfItems() {
+        return NumberOfItems;
+    }
+
+    public void setNumberOfItems(Integer numberOfItems) {
+        NumberOfItems = numberOfItems;
     }
 }

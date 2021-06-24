@@ -27,10 +27,14 @@ public class Item implements Serializable {
 
     private String pictureUrl;
 
-    public Item(String title, Integer price, String pictureUrl) {
+    private Integer ItemsAvailable;
+
+
+    public Item(String title, Integer price, String pictureUrl, Integer itemsAvailable) {
         Title = title;
         Price = price;
         this.pictureUrl = pictureUrl;
+        this.ItemsAvailable = itemsAvailable;
     }
 
     public Item() {
@@ -68,6 +72,14 @@ public class Item implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getItemsAvailable() {
+        return ItemsAvailable;
+    }
+
+    public void setItemsAvailable(Integer itemsAvailable) {
+        ItemsAvailable = itemsAvailable;
     }
 
 }
