@@ -1,11 +1,12 @@
 package com.example.demo.service;
 
 
+import com.example.demo.configuration.EmailConfiguration;
+import com.example.demo.model.Cart;
 import com.example.demo.model.Item;
 import com.example.demo.model.OrderItem;
-import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.OrderItemRepository;
-import org.aspectj.weaver.ast.Or;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +16,11 @@ import java.util.Optional;
 public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
 
-    public OrderItemService(OrderItemRepository orderItemRepository) {
+    private final EmailConfiguration emailService;
+
+    public OrderItemService(OrderItemRepository orderItemRepository, EmailConfiguration emailService) {
         this.orderItemRepository = orderItemRepository;
+        this.emailService = emailService;
     }
 
     public List<OrderItem> GetAll() {
@@ -28,6 +32,7 @@ public class OrderItemService {
     }
 
     public OrderItem Add(OrderItem orderItem) {
+        emailService.getJavaMailSender().sendOrderConfirmationMessage(orderItem.getEmail());
         return orderItemRepository.save(orderItem);
     }
 

@@ -4,11 +4,16 @@ import com.example.demo.model.Item;
 import com.example.demo.model.OrderItem;
 import com.example.demo.service.ItemService;
 import com.example.demo.service.OrderItemService;
+import com.example.demo.smtp.EmailService;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +23,10 @@ import java.util.Optional;
 @RequestMapping("/api/v1/order_item")
 public class OrderItemController {
     private final OrderItemService service;
+
+
+    @Autowired
+    public EmailService emailService;
 
     @Autowired
     public OrderItemController(OrderItemService service) {

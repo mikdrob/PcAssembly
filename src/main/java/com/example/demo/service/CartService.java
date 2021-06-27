@@ -20,7 +20,7 @@ public class CartService {
         return cartRepository.findAll();
     }
 
-    public Cart Add(Cart person) {
-        return cartRepository.save(person);
+    public Cart Add(Cart cart) {
+        return cartRepository.save(cart);
     }
 }
