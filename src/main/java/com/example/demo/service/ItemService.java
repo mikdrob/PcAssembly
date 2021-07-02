@@ -6,6 +6,7 @@ import com.example.demo.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemService {
@@ -18,6 +19,10 @@ public class ItemService {
 
     public List<Item> GetAll() {
         return itemRepository.findAll();
+    }
+
+    public Optional<Item> Get(Long id) {
+        return itemRepository.findById(id);
     }
 
     public Item Add(Item person) {

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -24,6 +25,14 @@ public class ItemController {
     public ResponseEntity<List<Item>> GetItems() {
         return ResponseEntity.ok(service.GetAll());
     }
+
+    @CrossOrigin(maxAge = 3600)
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Item>> GetItem(@PathVariable("id") String id) {
+        long result = Long.parseLong(id);
+        return ResponseEntity.ok(service.Get(result));
+    }
+
 
     @PostMapping
     public ResponseEntity<Item> PostItem(@RequestBody Item item){
