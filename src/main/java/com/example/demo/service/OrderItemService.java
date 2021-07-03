@@ -28,12 +28,17 @@ public class OrderItemService {
     }
 
     public Optional<OrderItem> Get(Long id) {
+        OrderItem test = orderItemRepository.getById(id);
+        List<Cart> cart = test.getItems();
+        for (Cart cart1:cart
+             ) {
+            cart1.getItem().
+        }
         return orderItemRepository.findById(id);
     }
 
     public OrderItem Add(OrderItem orderItem) {
-        emailService.getJavaMailSender().sendOrderConfirmationMessage(orderItem.getEmail());
+//        emailService.getJavaMailSender().sendOrderConfirmationMessage(orderItem.getEmail());
         return orderItemRepository.save(orderItem);
     }
-
 }

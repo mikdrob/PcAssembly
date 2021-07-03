@@ -1,10 +1,10 @@
 package com.example.demo.smtp;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
-import java.util.Map;
+import com.example.demo.dto.EmailItems;
+
+import java.util.List;
 
 public interface EmailService {
-    void sendOrderConfirmationMessage(String to);
+    void sendOrderConfirmationMessage(String to, List<EmailItems> items);
 
 }

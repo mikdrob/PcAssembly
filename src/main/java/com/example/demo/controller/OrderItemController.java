@@ -50,4 +50,12 @@ public class OrderItemController {
     public ResponseEntity<OrderItem> PostOrderItem(@RequestBody OrderItem orderItem){
         return ResponseEntity.ok(service.Add(orderItem));
     }
+
+    @CrossOrigin(maxAge = 3600)
+    @PostMapping("/mail")
+    public ResponseEntity<String> sendEmail(@RequestBody String id){
+        service.Get(Long.parseLong(id));
+        // emailService.sendOrderConfirmationMessage(emailAddress, items);
+        return ResponseEntity.ok("email is sent");
+    }
 }
