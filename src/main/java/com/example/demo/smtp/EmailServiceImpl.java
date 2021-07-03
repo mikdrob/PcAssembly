@@ -2,7 +2,7 @@ package com.example.demo.smtp;
 
 
 import com.example.demo.dto.EmailTemplate;
-import com.example.demo.dto.EmailItems;
+import com.example.demo.model.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -21,17 +21,17 @@ public class EmailServiceImpl implements EmailService {
 
 
     @Override
-    public void sendOrderConfirmationMessage(String to, List<EmailItems> items) {
+    public void sendOrderConfirmationMessage(String to, List<Cart> items) {
         SimpleMailMessage msg = new SimpleMailMessage();
-        String message = emailTemplate.getText();
-        for (EmailItems item:items) {
-            message+=item.getTitle() + ": "+ item.getPrice() + "\n";
+        StringBuilder message = new StringBuilder(emailTemplate.getText());
+        for (Cart item:items) {
+            message.append(item.getItem().getTitle()).append(": ").append(item.getItem().getPrice()).append("euro").append("\n");
         }
 
         msg.setTo(to);
 
         msg.setSubject(emailTemplate.getSubject());
-        msg.setText(message);
+        msg.setText(message.toString());
 
         javaMailSender.send(msg);
     }

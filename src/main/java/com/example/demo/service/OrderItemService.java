@@ -13,14 +13,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OrderItemService {
+public class OrderItemService{
     private final OrderItemRepository orderItemRepository;
 
-    private final EmailConfiguration emailService;
-
-    public OrderItemService(OrderItemRepository orderItemRepository, EmailConfiguration emailService) {
+    public OrderItemService(OrderItemRepository orderItemRepository) {
         this.orderItemRepository = orderItemRepository;
-        this.emailService = emailService;
     }
 
     public List<OrderItem> GetAll() {
@@ -28,17 +25,16 @@ public class OrderItemService {
     }
 
     public Optional<OrderItem> Get(Long id) {
-        OrderItem test = orderItemRepository.getById(id);
-        List<Cart> cart = test.getItems();
-        for (Cart cart1:cart
-             ) {
-            cart1.getItem().
-        }
+
         return orderItemRepository.findById(id);
     }
 
     public OrderItem Add(OrderItem orderItem) {
-//        emailService.getJavaMailSender().sendOrderConfirmationMessage(orderItem.getEmail());
         return orderItemRepository.save(orderItem);
+    }
+
+    public String SendEmailConfirmation(Long id){
+        OrderItem orderItem = orderItemRepository.getById(id);
+        return orderItemRepository.sendConfirmationEmail(orderItem);
     }
 }
