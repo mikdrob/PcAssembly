@@ -1,26 +1,20 @@
 package com.example.demo.model;
 
-import jdk.jfr.Category;
+
 import lombok.Data;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="items")
-public class Item implements Serializable {
+@Table(name = "items")
+public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Type(type = "org.hibernate.type.StringType")
     private String Title;
 
     private Integer Price;
@@ -38,7 +32,6 @@ public class Item implements Serializable {
     }
 
     public Item() {
-
     }
 
 
@@ -81,5 +74,6 @@ public class Item implements Serializable {
     public void setItemsAvailable(Integer itemsAvailable) {
         ItemsAvailable = itemsAvailable;
     }
+
 
 }
