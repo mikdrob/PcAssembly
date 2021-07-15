@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Embeddable
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "order")
 public class OrderItemKey implements Serializable {
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;

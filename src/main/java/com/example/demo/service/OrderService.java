@@ -6,6 +6,7 @@ import com.example.demo.repository.OrderItemRepository;
 import com.example.demo.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public List<Order> GetAll() {
+    public Iterable<Order> GetAll() {
         return orderRepository.findAll();
     }
 

@@ -18,10 +18,6 @@ public class OrderItem {
         super();
     }
 
-    public OrderItem(OrderItemKey id) {
-        this.id = id;
-    }
-
     public OrderItem(Item item, Order order, Integer quantity) {
         id = new OrderItemKey();
         id.setItem(item);

@@ -8,9 +8,11 @@ import com.example.demo.service.ItemService;
 import com.example.demo.service.OrderItemService;
 import com.example.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +34,9 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> GetAllOrders() {
-        return ResponseEntity.ok(orderService.GetAll());
+    @ResponseStatus(HttpStatus.OK)
+    public @NotNull Iterable<Order> GetAllOrders() {
+        return orderService.GetAll();
     }
 
     @PostMapping
