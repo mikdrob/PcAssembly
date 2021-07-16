@@ -1,0 +1,38 @@
+image: gitlab/dind
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay
+  SPRING_PROFILES_ACTIVE: gitlab-ci
+  USER_GITLAB: midrob
+  APP_NAME: pcassemblyapi
+  REPO: pcassembly
+
+stages:
+  - build
+  - test
+  - docker
+
+maven-build:
+  image: maven:3-jdk-8
+  stage: build
+  script: "mvn clean package -B"
+  artifacts:
+    paths:
+      - target/*.jar
+
+maven-test:
+  image: maven:3-jdk-8
+  stage: test
+  script: "mvn test"
+  artifacts:
+    paths:
+      - target/*.jar
+
+docker-build:
+  stage: docker
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -t registry.gitlab.com/midrob/pcassembly .
+    - docker push registry.gitlab.com/midrob/pcassembly
