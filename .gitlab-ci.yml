@@ -22,5 +22,5 @@ docker-build:
   stage: package
   script:
     - docker build -t registry.gitlab.cs.ttu.ee/midrob/pcassembly .
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.cs.ttu.ee
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
     - docker push registry.gitlab.cs.ttu.ee/midrob/pcassembly
