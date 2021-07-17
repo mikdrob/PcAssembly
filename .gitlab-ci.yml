@@ -21,6 +21,6 @@ maven-build:
 docker-build:
   stage: package
   script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker build -t registry.gitlab.cs.ttu.ee/midrob/pcassembly .
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.cs.ttu.ee
     - docker push registry.gitlab.cs.ttu.ee/midrob/pcassembly
