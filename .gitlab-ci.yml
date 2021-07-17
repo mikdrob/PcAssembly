@@ -9,6 +9,7 @@ variables:
 stages:
   - build
   - package
+  - deploy
 
 maven-build:
   image: maven:3-jdk-11
@@ -17,12 +18,24 @@ maven-build:
   artifacts:
     paths:
       - target/*.jar
+  tags:
+    - api
 
 docker-build:
   stage: package
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   script:
-    - docker login -u $CI_JOB_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
+
+deploy:
+  stage: deploy
+  tags:
+    - api
+  script:
+    - mkdir -p ~/api-deployment
+    - rm -rf ~/api-deployment/*
+    - cp -r target/*.jar ~/api-deployment
+    - sudo service pcassemblyapi restart
